@@ -59,14 +59,6 @@ public class ResourceBundleJavascriptExport
 	private static final Logger logger = Logger.getLogger(ResourceBundleJavascriptExport.class);
 	
 	/**
-	 * Maintains of relative folder of this class. Method <code>getCodeSource().getLocation()</code> is a
-	 * collaboration of Lucas Diedrich.
-	 * 
-	 * @author Lucas Diedrich (CIH - Centro Internacional de Hidroinformática - lucas.diedrich@gmail.com)
-	 */
-	private File relative = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getFile());
-
-	/**
 	 * Instance of application parameters.
 	 */
 	private ServletContext context;
@@ -182,23 +174,6 @@ public class ResourceBundleJavascriptExport
 	}
 	
 	/**
-	 * Returns the WEB root directory of application.
-	 * 
-	 * @param current
-	 * 
-	 * @return
-	 */
-	private File getWebInfDirectory (File current)
-	{
-		while(!current.getParentFile().getName().equals("WEB-INF"))
-		{
-			current = current.getParentFile();
-		}
-		
-		return current.getParentFile().getParentFile();
-	}
-	
-	/**
 	 * This method creates an new Javascript file with the jQuery plugin content ($.msg). If
 	 * the file exists, the same will be replaced.
 	 * 
@@ -211,10 +186,10 @@ public class ResourceBundleJavascriptExport
 	private void createI18nJavascriptFile (String content, Locale locale) throws IOException
 	{
 		// Ensures that the file is at the root of WebContent
-		File parent = this.getWebInfDirectory(relative);
-
+		File root = new File(this.context.getRealPath("/"));
+		
 		File dir = new File(
-			parent.getCanonicalPath() + File.separator + "js" + File.separator + "i18n" + File.separator
+			root.getCanonicalPath() + File.separator + "js" + File.separator + "i18n" + File.separator
 		);
 		
 		if(!dir.exists())
@@ -228,7 +203,7 @@ public class ResourceBundleJavascriptExport
 		}
 		
 		File js = new File(
-			parent.getCanonicalPath() + File.separator + "js" + File.separator + "i18n" + File.separator + "messages_" + locale + ".js"
+			root.getCanonicalPath() + File.separator + "js" + File.separator + "i18n" + File.separator + "messages_" + locale + ".js"
 		);
 		
 		// Delete and create.
