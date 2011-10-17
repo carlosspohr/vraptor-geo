@@ -1,7 +1,5 @@
 package com.wp.carlos4web.cpropriedades.controllers;
 
-import static org.hamcrest.Matchers.nullValue;
-
 import java.util.Collection;
 import java.util.ResourceBundle;
 
@@ -61,14 +59,14 @@ public class PropriedadeController
 	{
 		final Propriedade p = propriedade;
 		
+		// TODO Rever esta validação depois.
 		validator.checking(new Validations(ResourceBundle.getBundle("/i18n/messages")){{
 			if(p != null)
 			{
-				that(p.getNomePropriedade(), nullValue(), 	i18n("Alerta"), "nome.propriedade.em.branco");
-				that(p.getNomePropriedade().isEmpty(), 		i18n("Alerta"), "nome.propriedade.em.branco");
+				that(!p.getNomePropriedade().isEmpty(), i18n("erro.validacao"), "nome.propriedade.requerido");
+				that(!p.getNomeProprietario().isEmpty(), i18n("erro.validacao"), "nome.proprietario.requerido");
 				
-				that(p.getNomeProprietario(), nullValue(), 	i18n("Alerta"), "nome.proprietario.em.branco");
-				that(p.getNomeProprietario().isEmpty(), 	i18n("Alerta"), "nome.proprietario.em.branco");
+				that( !(p.getX() == null || p.getY() == null), i18n("erro.validacao"), "localizacao.propriedade.requerido");
 			}
 		}});
 		
@@ -78,7 +76,7 @@ public class PropriedadeController
 		{
 			Point ponto = (Point) GeometriaFactory.createPointFromCoordinates(propriedade.getX(), propriedade.getY(), 4326);
 			propriedade.setPoint(ponto);
-			this.persistence.persist(propriedade);
+			this.persistence.update(propriedade);
 			this.result.include("msg", "Propriedade salva com sucesso.");
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -65,7 +65,15 @@ p {
 	font-size: 13px;
 	font-family: 'Droid Sans', sans-serif;
 }
-
+a{
+	color: #09f;
+	font-size: 12px;
+	text-decoration: none;
+}
+a:hover{
+	color: #000;
+	text-decoration: underline;
+}
 h1,h2,h3 {
 	color: #09f;
 	font-family: "Oswald";
@@ -236,4 +244,14 @@ table
 	font: 80%/1.7em "Trebuchet MS", "Bitstream Vera Sans", Verdana, Helvetica, sans-serif;
 	text-align: justify;
 	padding: 5px;
+}
+
+.inputbox {
+	border:1px dotted #09f;
+	padding:3px;
+	color:#333;
+}
+label {
+	font-size:12px;
+	font-family: Verdana;
 }
