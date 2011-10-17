@@ -1,0 +1,67 @@
+.label-map
+{
+	font-size:12px;
+	font-weight:bold;
+}
+.olMap
+{
+	padding:1px;
+	border:0px solid black;
+}
+/*
+.olMapViewport
+{
+	border:0px solid blue;
+	margin-top:-13px;
+	top:13px;
+}
+*/
+.inputbox-map
+{
+	border:1px solid #c0c0c0;
+	padding:2px;
+	height: 25px;
+}
+/* CSS para o botão de troca de camada.*/
+.olControlLayerSwitcherItemActive
+{
+	width:24px;
+	height:24px;
+	border:1px solid #c0c0c0;
+	background: url("/sisui/js/cih-map/img/pictures-stack.png") no-repeat 50% 50%;
+	-moz-border-radius-topright:2px;
+	-webkit-border-top-right-radius:2px;
+}
+
+.olControlLayerSwitcherItemInactive
+{
+	width:24px;
+	height:24px;
+	border:1px solid #f0f0f0;
+	background: url("/sisui/js/cih-map/img/pictures-stack-disabled.png") no-repeat 50% 50%;
+	-moz-border-radius-topright:2px;
+	-webkit-border-top-right-radius:2px;
+}
+
+.olControlLayerSwitcherItemActive:hover, .olControlLayerSwitcherItemInactive:hover
+{
+	-moz-border-radius-topright:2px;
+	-webkit-border-top-right-radius:2px;
+	background-color:#FFFFF0;
+}
+/* Fim do CSS para o botão de troca de camada.*/
+
+.olControlZoomPanel
+{
+	width:24px;
+	background: url("/sisui/js/cih-map/img/arrow-out.png") no-repeat 50% 50%;
+	font-family:'Trebuchet MS', Tahoma, Verdana, Arial, sans-serif;
+}
+.olControlNavigationItemInactive
+	width:24px;
+	height:24px;
+	border:1px solid #f0f0f0;
+	background: url("/sisui/js/cih-map/img/arrow-out-disabled.png") no-repeat 50% 50%;
+	-moz-border-radius-topright:2px;
+	-webkit-border-top-right-radius:2px;
+}

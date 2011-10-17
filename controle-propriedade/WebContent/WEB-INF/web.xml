@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.5"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<display-name>controle-propriedade</display-name>
+	
+  	<context-param>  
+        <description>VRaptor handles HTTP requests in UTF-8 format</description>  
+        <param-name>br.com.caelum.vraptor.encoding</param-name>  
+        <param-value>UTF-8</param-value>  
+    </context-param>
+	
+<!-- 	<context-param> -->
+<!-- 		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name> -->
+<!-- 		<param-value>com.wp.carlos4web.cpropriedades.i18n.messages</param-value> -->
+<!-- 	</context-param> -->
+	
+	<context-param>
+	        <param-name>br.com.caelum.vraptor.packages</param-name>
+	        <param-value>br.com.caelum.vraptor.util.jpa</param-value>
+	</context-param>
+	
+	<filter>
+        <filter-name>vraptor</filter-name>
+        <filter-class>br.com.caelum.vraptor.VRaptor</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>vraptor</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+    
+    <session-config>
+    	<session-timeout>40</session-timeout>
+    </session-config>
+</web-app>
