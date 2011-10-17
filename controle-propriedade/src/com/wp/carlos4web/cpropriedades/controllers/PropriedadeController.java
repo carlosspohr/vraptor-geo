@@ -1,6 +1,7 @@
 package com.wp.carlos4web.cpropriedades.controllers;
 
 import java.util.Collection;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import br.com.caelum.vraptor.Get;
@@ -13,7 +14,7 @@ import br.com.caelum.vraptor.validator.Validations;
 
 import com.vividsolutions.jts.geom.Point;
 import com.wp.carlos4web.cpropriedades.beans.Propriedade;
-import com.wp.carlos4web.cpropriedades.dao.IPersistence;
+import com.wp.carlos4web.cpropriedades.dao.GenericDAO;
 import com.wp.carlos4web.cpropriedades.geo.GeometriaFactory;
 
 @Resource
@@ -22,11 +23,11 @@ public class PropriedadeController
 {
 	private Result result;
 	
-	private IPersistence persistence;
+	private GenericDAO persistence;
 
 	private Validator validator;
 
-	public PropriedadeController(Result result, IPersistence persistence, Validator validator) 
+	public PropriedadeController(Result result, GenericDAO persistence, Validator validator) 
 	{
 		this.result = result;
 		this.persistence = persistence;
@@ -59,8 +60,16 @@ public class PropriedadeController
 	{
 		final Propriedade p = propriedade;
 		
-		// TODO Rever esta validação depois.
-		validator.checking(new Validations(ResourceBundle.getBundle("/i18n/messages")){{
+		// TODO Rever esta validação depois. ResourceBundle.getBundle("/i18n/messages")
+		System.out.println("-------------------" + Locale.ENGLISH);
+		
+		ResourceBundle.getBundle("");
+		
+		Locale l = new Locale("");
+		
+		//l.getAvailableLocales()
+		
+		validator.checking(new Validations(ResourceBundle.getBundle("messages", Locale.ENGLISH)){{
 			if(p != null)
 			{
 				that(!p.getNomePropriedade().isEmpty(), i18n("erro.validacao"), "nome.propriedade.requerido");

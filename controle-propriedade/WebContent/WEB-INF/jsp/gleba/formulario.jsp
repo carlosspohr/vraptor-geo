@@ -5,11 +5,11 @@
 <fmt:setLocale value="pt_BR"/>
 <cih:template part="header" path="default"/>
 		
-		<h1>Cadastro/Alteração de Propriedades</h1>
+		<h1>Cadastro/Alteração de Glebas</h1>
 		
 		<br/>
-		<a href="<c:url value='/cadastros/propriedades/cadastrar/'/>">
-			Cadastrar nova propriedade
+		<a href="<c:url value='/cadastros/glebas/${propriedade.id}/cadastrar/'/>">
+			Cadastrar nova gleba
 		</a>
 		<br/>
 		
@@ -21,51 +21,26 @@
 			</div>
 		</c:if>
 		
-		<form id="form" method="post" action="<c:url value='/cadastros/propriedades/salvar/'/>">
+		<form id="form" method="post" action="<c:url value='/cadastros/glebas/salvar/'/>">
 			
-			<input type="hidden" name="propriedade.id" id="id" value="${propriedade.id}"/>
+			<input type="hidden" name="propriedade.id" id="idp" value="${propriedade.id}"/>
+			<input type="hidden" name="gleba.id" id="idg" value="${gleba.id}"/>
 				
 			<table>
 				<tr>
 					<td>
 						<label>
-							Nome da Propriedade: *<br/>
-							<input type="text" class="inputbox" size="30" name="propriedade.nomePropriedade" 
-								id="nomePropriedade" value="${propriedade.nomePropriedade}"/>
+							Descrição: *<br/>
+							<input type="text" class="inputbox" size="50" name="gleba.descricao" 
+								id="descricao" value="${gleba.descricao}"/>
 						</label>
 					</td>
-					<td>
-						<label>
-							Nome do Proprietário: *<br/>
-							<input type="text" class="inputbox" size="30" name="propriedade.nomeProprietario" 
-								id="nomeProprietario" value="${propriedade.nomeProprietario}"/>
-						</label>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label>
-							Longitude: *<br/>
-							<input type="text" class="inputbox" size="30" name="propriedade.x" 
-								id="x" value="${propriedade.point.x}"/>
-						</label>
-					</td>
-					<td>
-						<label>
-							Latitude: *<br/>
-							<input type="text" class="inputbox" size="30" name="propriedade.y" 
-								id="y" value="${propriedade.point.y}"/>
-						</label>
-					</td>
+				
 				</tr>
 			</table>
 			
-			<br/>
-			
-			<div id="mapa" style="width: 80%; height: 250px;"></div>
-			<div id="box_coordenadas__"></div>
-			
-			<br/>
+			<input class="map-button btn" type="button" id="bt-abre-mapa"
+												value="<fmt:message key='abrir.janela.mapa'/>"/>
 			<input type="submit" value="Salvar"/>
 			
 		</form>
@@ -73,133 +48,36 @@
 		<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true_or_false&amp;key=ABQIAAAAaXpf-8iMc3MLup8v6WaqthTTZBWuT9oAQHW-RaNNUfDE-z2pjhT6si-Pzle1YKQ4sTzojCPRIeUfJw" type="text/javascript"></script>
 		<script type="text/javascript" src="<c:url value='/js/openlayers.2.10/OpenLayers.js'/>"></script>
 		
+		<script type="text/javascript" src="<c:url value='/js/cih-map/cih.map.js'/>"></script>
+		<script type="text/javascript" src="<c:url value='/js/cih-map/cih.location.search.js'/>"></script>
+		<script type="text/javascript" src="<c:url value='/js/cih-map/cih.geometry.js'/>"></script>
+		
 		<script type="text/javascript">
+			var cih = null;
 			$(document).ready(function(){
+				cih = new CIHMap();
 				
-				var options = {
-					//controls:[],
-					maxExtent: new OpenLayers.Bounds(-20037508, -20037508, 20037508, 20037508.34),
-					projection		 : new OpenLayers.Projection("EPSG:900913"),
-					displayProjection: new OpenLayers.Projection("EPSG:4326"),
-					Z_INDEX_BASE: {
-						BaseLayer	: 0,
-						Overlay		: 32,
-						Feature		: 72,
-						Popup		: 75,
-						Control		: 90
-					}
-				};
-				var map = new OpenLayers.Map("mapa", options);
-				
-				var gmap = new OpenLayers.Layer.Google(
-					"Google Streets",
-		            {
-						numZoomLevels		: 20,
-						'sphericalMercator'	: true
-					}
-		        );
-		        var ghyb = new OpenLayers.Layer.Google(
-		        	"Google Híbrido",
-		            {
-						type				: G_HYBRID_MAP, 
-						numZoomLevels		: 20,
-						'sphericalMercator'	: true
-					}
-		        );
-		        var gsat = new OpenLayers.Layer.Google(
-		        	"Google Satélite",
-		            {
-						type				: G_SATELLITE_MAP, 
-						numZoomLevels		: 22,
-						'sphericalMercator'	: true
-					}
-		        );
-				var gphy = new OpenLayers.Layer.Google(
-					"Google Físico",
-		            {
-						type				: G_PHYSICAL_MAP,
-						numZoomLevels		: 22,
-						'sphericalMercator'	: true
-					}
-		        );
-		        
-				var mapnik = new OpenLayers.Layer.OSM();
-				
-				map.addLayers([ghyb, gmap, gphy, gsat, mapnik]);
-				
-				
-				// Controles.
-				var layerSwitcher = new OpenLayers.Control.LayerSwitcher({
-					id: 'layer-switcher',
-					ascending:false,
-					roundedCorner: true
+				$('#bt-abre-mapa').unbind('click').bind('click', function(){
+					cih.multiGeometryProfile({
+						defaultZoomLevel: 4,
+						geometryAfterLoadMap: function(){
+							
+				            var layer = new OpenLayers.Layer.WMS(
+				            	"Hidrografia do Brasil",
+				                "http://teste.hidroinformatica.org/geoserver2/gwc/service/wms", {
+				                	layers		: 'sigbiogas:hidrografia',
+				                	format		: 'image/png',
+				                	transparent	: 'true',
+				                	srs			: 'EPSG:900913'
+				                }, {
+				                	opacity: 0.6
+				                }
+				            );
+				            
+				            cih.getMap().addLayer(layer);
+						}
+					});
 				});
-				
-				var mousePosition = new OpenLayers.Control.MousePosition({
-					id: 'mouse-position',
-					div:document.getElementById("box_coordenadas__")
-				});
-				
-				var scaleLine = new OpenLayers.Control.ScaleLine({
-					id: 'scale-line',
-					div:document.getElementById("box_escala__")
-				});
-				
-				var navigation = new OpenLayers.Control.Navigation({
-					id: 'navigation',
-					zoomWheelEnabled: true
-				});
-				
-				map.addControl (layerSwitcher);
-				map.addControl (mousePosition);
-				map.addControl (scaleLine);
-				map.addControl (navigation);
-
-				
-				
-				// onclick.
-				var markersLayer = new OpenLayers.Layer.Markers("Markers");
-				
-				map.addLayer(markersLayer);
-				
-				var instancia = map;
-				map.events.register("click", instancia, function(evt)
-				{
-		        	setCoordenadasInput(evt, map, markersLayer); 
-		        });
-				
-				
-				map.setCenter(new OpenLayers.LonLat(-57.25572, -26.51011).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()), 5);
-				
-				function setCoordenadasInput(evt, map, markerLayer)
-				{
-					var ponto = getPointAtXY(evt);
-				    
-				    $('#x').attr('value', ponto.lon);
-				    $('#y').attr('value', ponto.lat);
-				   	
-				    markerLayer.clearMarkers();
-					
-					var imageIconPath = "/controle-propriedade/templates/default/css/img/marker.png";
-					
-					var size 	= new OpenLayers.Size(20, 34);
-			        var offset 	= new OpenLayers.Pixel(-(size.w / 2), -size.h);
-			        var icon 	= new OpenLayers.Icon(imageIconPath, size, offset);
-					
-					var lonLat = new OpenLayers.LonLat(ponto.lon, ponto.lat);
-			        
-			        markerLayer.addMarker(new OpenLayers.Marker(
-			        	lonLat.transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()), icon));
-				}
-				
-				function getPointAtXY(evt)
-				{
-					var ponto 		= map.getLonLatFromPixel(evt.xy);
-				    var convertido 	= ponto.transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326"));
-				    
-				    return convertido;
-				};
-				
 			});
 		</script>
 

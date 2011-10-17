@@ -2,7 +2,7 @@
 <%@ taglib prefix="c"	uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="cih" tagdir="/WEB-INF/tags/template"	%>
 
-<fmt:setLocale value="pt_BR"/>
+<fmt:setLocale value="en_EN"/>
 <cih:template part="header" path="default"/>
 		
 		<h1>Cadastro/Alteração de Propriedades</h1>

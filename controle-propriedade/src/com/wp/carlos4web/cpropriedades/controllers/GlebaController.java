@@ -42,11 +42,12 @@ public class GlebaController
 	}
 	
 	@Get({
-		"/cadastrar/",
-		"/editar/{propriedade.id}"
+		"/{propriedade.id}/cadastrar/",
+		"/{propriedade.id}/editar/{gleba.id}"
 	})
-	public void formulario (@LoadObject Propriedade propriedade)
+	public void formulario (@LoadObject Propriedade propriedade, @LoadObject Gleba gleba)
 	{
 		this.result.include("propriedade", propriedade);
+		this.result.include("gleba", gleba);
 	}
 }

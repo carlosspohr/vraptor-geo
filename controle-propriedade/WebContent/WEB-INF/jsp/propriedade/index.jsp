@@ -38,4 +38,5 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<script type="text/javascript" src="<c:url value='/js/i18n/messages_pt_BR.js'/>"></script>
 <cih:template part="footer" path="default"/>
