@@ -2,6 +2,7 @@ package com.wp.carlos4web.cpropriedades.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -11,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
@@ -37,6 +40,9 @@ public class Propriedade implements Serializable
 	
 	@OneToMany(mappedBy="propriedade", fetch=FetchType.LAZY)
 	private Collection<Gleba> glebas = new ArrayList<Gleba>();
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar dataCadastro = Calendar.getInstance();
 	
 	@Transient
 	private Double x, y;
@@ -100,5 +106,13 @@ public class Propriedade implements Serializable
 
 	public void setY(Double y) {
 		this.y = y;
+	}
+
+	public Calendar getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Calendar dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 }

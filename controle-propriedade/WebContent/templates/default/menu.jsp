@@ -20,5 +20,10 @@
 					Glebas
 				</a>
 			</li>
+			<li>
+				<a href="<c:url value='/consultas/propriedades/'/>">
+					Consulta
+				</a>
+			</li>
 		</ul>
 	</div>

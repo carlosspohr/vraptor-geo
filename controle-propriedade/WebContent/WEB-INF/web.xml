@@ -23,6 +23,11 @@
         <filter-name>vraptor</filter-name>
         <filter-class>br.com.caelum.vraptor.VRaptor</filter-class>
     </filter>
+    
+    <context-param>
+    	<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+    	<param-value>messages</param-value>
+    </context-param>
 
     <filter-mapping>
         <filter-name>vraptor</filter-name>
