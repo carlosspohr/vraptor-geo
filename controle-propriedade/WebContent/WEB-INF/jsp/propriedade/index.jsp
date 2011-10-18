@@ -28,7 +28,7 @@
 					<td>${p.nomePropriedade}</td>
 					<td>${p.nomeProprietario}</td>
 					<td>
-						<a href="<c:url value='/cadastros/propriedades/glebas/${p.id}'/>">Glebas</a>
+						<a href="<c:url value='/cadastros/glebas/${p.id}'/>">Glebas</a>
 						&nbsp;
 						<a href="<c:url value='/cadastros/propriedades/editar/${p.id}'/>">Editar</a>
 						&nbsp;

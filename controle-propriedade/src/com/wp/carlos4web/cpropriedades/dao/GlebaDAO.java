@@ -14,8 +14,8 @@ import br.com.caelum.vraptor.ioc.Component;
 import com.wp.carlos4web.cpropriedades.beans.Gleba;
 import com.wp.carlos4web.cpropriedades.beans.Propriedade;
 
-//@Component
-public class GlebaDAO extends GenericDAO
+@Component
+public class GlebaDAO extends GenericPersistence
 {
 	public GlebaDAO(EntityManager entityManager)
 	{

@@ -5,7 +5,7 @@
 <fmt:setLocale value="pt_BR"/>
 <cih:template part="header" path="default"/>
 		
-		<h1>Cadastro/Alteração de Glebas</h1>
+		<h1>Cadastro de Glebas para a propriedade {${propriedade.nomePropriedade}}</h1>
 		
 		<br/>
 		<a href="<c:url value='/cadastros/glebas/${propriedade.id}/cadastrar/'/>">
@@ -23,7 +23,7 @@
 		
 		<form id="form" method="post" action="<c:url value='/cadastros/glebas/salvar/'/>">
 			
-			<input type="hidden" name="propriedade.id" id="idp" value="${propriedade.id}"/>
+			<input type="hidden" name="gleba.propriedade.id" id="idp" value="${propriedade.id}"/>
 			<input type="hidden" name="gleba.id" id="idg" value="${gleba.id}"/>
 				
 			<table>
@@ -38,7 +38,8 @@
 				
 				</tr>
 			</table>
-			
+			<textarea rows="10" cols="40" id="wkt" name="gleba.wkt">${gleba.wkt}</textarea>
+			<br/>
 			<input class="map-button btn" type="button" id="bt-abre-mapa"
 												value="<fmt:message key='abrir.janela.mapa'/>"/>
 			<input type="submit" value="Salvar"/>
@@ -46,6 +47,7 @@
 		</form>
 		
 		<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true_or_false&amp;key=ABQIAAAAaXpf-8iMc3MLup8v6WaqthTTZBWuT9oAQHW-RaNNUfDE-z2pjhT6si-Pzle1YKQ4sTzojCPRIeUfJw" type="text/javascript"></script>
+		<script type="text/javascript" src="<c:url value='/js/jquery-ui/jquery-ui-1.8.10.custom.min.js'/>"></script>
 		<script type="text/javascript" src="<c:url value='/js/openlayers.2.10/OpenLayers.js'/>"></script>
 		
 		<script type="text/javascript" src="<c:url value='/js/cih-map/cih.map.js'/>"></script>
@@ -59,23 +61,7 @@
 				
 				$('#bt-abre-mapa').unbind('click').bind('click', function(){
 					cih.multiGeometryProfile({
-						defaultZoomLevel: 4,
-						geometryAfterLoadMap: function(){
-							
-				            var layer = new OpenLayers.Layer.WMS(
-				            	"Hidrografia do Brasil",
-				                "http://teste.hidroinformatica.org/geoserver2/gwc/service/wms", {
-				                	layers		: 'sigbiogas:hidrografia',
-				                	format		: 'image/png',
-				                	transparent	: 'true',
-				                	srs			: 'EPSG:900913'
-				                }, {
-				                	opacity: 0.6
-				                }
-				            );
-				            
-				            cih.getMap().addLayer(layer);
-						}
+						defaultZoomLevel: 4
 					});
 				});
 			});

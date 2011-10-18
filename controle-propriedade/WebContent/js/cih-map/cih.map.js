@@ -314,7 +314,7 @@ function CIHMap()
 	this.createLonLatInputs = function()
 	{
 		var inputs = "";
-		inputs += "<table border='1' width='100%' cellpadding='10'><tr>";
+		inputs += "<table border='0' width='100%' cellpadding='10'><tr>";
 		inputs += "		<td id='t001'><label class='label-map'>" + this.options.mapInformationLatitude + ": <br/><input type='text' class='inputbox-map' id='ponto_y' size='18'/></label></td>";
 		inputs += "		<td id='t002'><label class='label-map'>" + this.options.mapInformationLongitude + ": <br/><input type='text' class='inputbox-map' id='ponto_x' size='18'/></label></td>";
 		inputs += "		<td id='t003'><label class='label-map'>" + this.options.mapInformationCoordenadas + ":</label><br/><div id='box_coordenadas__'></div></td>";
@@ -386,7 +386,7 @@ function CIHMap()
 	 */
 	this.createSearchLocationForm = function()
 	{
-		var inputs = "<table border='1' width='100%' cellpadding='10'><tr>";
+		var inputs = "<table border='0' width='100%' cellpadding='10'><tr>";
 		inputs += "<td><label class='label-map'>" + this.options.searchLocationLabelText + ": <br/><input type='text' id='referencia_consulta' class='inputbox-map' size='50'/></label></td>";
 		inputs += "<td><br/><input type='button' class='submit' id='button-busca-location' value='" + this.getOptions().searchLocationButtonText + "'/></td>";
 		inputs += "<td><br/><input type='button' class='submit' id='button-limpa-busca' value='" + this.getOptions().searchLocationButtonLimpar + "'/></td>";
@@ -467,7 +467,7 @@ function CIHMap()
 	this.createCloseButton = function()
 	{
 		var inputs = "";
-		inputs += "<table border='1' width='100%' cellpadding='10'><tr>";
+		inputs += "<table border='0' width='100%' cellpadding='10'><tr>";
 		inputs += "		<td style='text-align:right;'><br/><input type='button' class='submit' id='button-close-dialog' value='" + this.options.dialogButtonClose + "'/></td>";
 		inputs += "</tr></table>";
 		
@@ -487,7 +487,7 @@ function CIHMap()
 	{
 		var div = "	<div id='" + this.mapDivId + "' style='width:100%; height:310px; margin:0px; padding:0px;'>&nbsp;</div>";
 		
-		var table = "<table border='1' width='100%'>";
+		var table = "<table border='0' width='100%'>";
 		table += "<tr><td><div id='table_linha1__'></div></td></tr>";
 		table += "<tr><td><div id='table_linha1_1__'></div><br/><div id='table_linha1_1_1__'></div></td></tr>";
 		table += "<tr><td><div id='table_linha2__'>" + div + "</div></td></tr>";

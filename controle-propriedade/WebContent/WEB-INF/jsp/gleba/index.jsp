@@ -22,15 +22,17 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${propriedades}" var="p" varStatus="cont">
+			<c:forEach items="${glebas}" var="p" varStatus="cont">
 				<tr>
 					<td style="text-align: center;">${p.id}</td>
 					<td>${p.descricao}</td>
-					<td>349.459.444</td>
 					<td>
-						<a href="<c:url value='/cadastros/propriedades/editar/${p.id}'/>">Editar</a>
+						${p.area.area} || ${p.area.length}
+					</td>
+					<td>
+						<a href="<c:url value='/cadastros/glebas/${propriedade.id}/editar/${p.id}'/>">Editar</a>
 						&nbsp;
-						<a href="<c:url value='/cadastros/propriedades/excluir/${p.id}'/>">Excluir</a>
+						<a href="<c:url value='/cadastros/glebas/${propriedade.id}/excluir/${p.id}'/>">Excluir</a>
 					</td>
 				</tr>
 			</c:forEach>

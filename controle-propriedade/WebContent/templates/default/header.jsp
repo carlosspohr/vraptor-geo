@@ -11,6 +11,8 @@
 		<link href="<c:url value='/templates/default/css/img/favicon.ico'/>" rel="icon" type="image/png" />
 		<link href="<c:url value='/templates/default/css/style.css'/>" 		media="all" type="text/css" rel="stylesheet"/>
 		<link href="<c:url value='/js/openlayers.2.10/theme/default/style.css'/>" 		media="all" type="text/css" rel="stylesheet"/>
+		<link href="<c:url value='/js/jquery-ui/ui-lightness/jquery-ui-1.8.10.custom.css'/>" 		media="all" type="text/css" rel="stylesheet"/>
+		<link href="<c:url value='/js/cih-map/style.css'/>" 		media="all" type="text/css" rel="stylesheet"/>
 		
 		<fmt:setLocale value="pt_BR"/>
 		<script type="text/javascript" src="<c:url value='/js/jquery/jquery-1.4.3.min.js'/>"></script>

@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 
@@ -34,9 +35,24 @@ public class Gleba implements Serializable
 	@Type(type="org.hibernatespatial.GeometryUserType")
 	private Polygon area;
 	
+	@Transient
+	private String wkt;
+	
 	public Gleba()
 	{
 		
+	}
+
+	public String getWkt() {
+		if(this.area != null)
+		{
+			wkt = this.area.toString();
+		}
+		return wkt;
+	}
+
+	public void setWkt(String wkt) {
+		this.wkt = wkt;
 	}
 
 	public Long getId() {

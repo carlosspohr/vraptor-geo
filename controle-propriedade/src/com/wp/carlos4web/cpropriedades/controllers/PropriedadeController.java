@@ -1,8 +1,6 @@
 package com.wp.carlos4web.cpropriedades.controllers;
 
 import java.util.Collection;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -16,6 +14,7 @@ import com.vividsolutions.jts.geom.Point;
 import com.wp.carlos4web.cpropriedades.beans.Propriedade;
 import com.wp.carlos4web.cpropriedades.dao.GenericDAO;
 import com.wp.carlos4web.cpropriedades.geo.GeometriaFactory;
+import com.wp.carlos4web.cpropriedades.vraptor.lo.annotations.LoadObject;
 
 @Resource
 @Path("/cadastros/propriedades")
@@ -42,6 +41,20 @@ public class PropriedadeController
 	}
 	
 	@Get({
+		"/excluir/{propriedade.id}"
+	})
+	public void excluir (@LoadObject(required=true, redirectToWhenObjectNotFound="/cadastros/propriedades/") Propriedade propriedade)
+	{
+		try
+		{
+			this.persistence.delete(propriedade);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		this.result.redirectTo(this.getClass()).index();
+	}
+	
+	@Get({
 		"/cadastrar/",
 		"/editar/{propriedade.id}"
 	})
@@ -59,17 +72,8 @@ public class PropriedadeController
 	public void salvar (Propriedade propriedade)
 	{
 		final Propriedade p = propriedade;
-		
-		// TODO Rever esta validação depois. ResourceBundle.getBundle("/i18n/messages")
-		System.out.println("-------------------" + Locale.ENGLISH);
-		
-		ResourceBundle.getBundle("");
-		
-		Locale l = new Locale("");
-		
-		//l.getAvailableLocales()
-		
-		validator.checking(new Validations(ResourceBundle.getBundle("messages", Locale.ENGLISH)){{
+		//ResourceBundle.getBundle("messages", Locale.ENGLISH)
+		validator.checking(new Validations(){{
 			if(p != null)
 			{
 				that(!p.getNomePropriedade().isEmpty(), i18n("erro.validacao"), "nome.propriedade.requerido");

@@ -13,5 +13,6 @@
 			<div class="clear"></div>
 		</div>
 		<div class="clear"></div>
+		<script type="text/javascript" src="<c:url value='/js/i18n/messages_pt_BR.js'/>"></script>
 	</body>
 </html>
