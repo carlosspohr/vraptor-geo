@@ -3,6 +3,10 @@
     <persistence-unit name="default">
     
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    
+    <class>com.wp.carlos4web.cpropriedades.beans.Estado</class>
+    <class>com.wp.carlos4web.cpropriedades.beans.Propriedade</class>
+    <class>com.wp.carlos4web.cpropriedades.beans.Gleba</class>
 	
     <properties>
     	<property name="hibernate.dialect" 					value="org.hibernatespatial.postgis.PostgisDialect" />
@@ -11,9 +15,7 @@
         <property name="hibernate.connection.username" 		value="postgres" />
         <property name="hibernate.connection.password" 		value="postgres" />
         <property name="hibernate.default_schema" 			value="cp" />
-		<!--
-		<property name="hibernate.hbm2ddl.auto" 			value="update" />
-		-->
+		
 		<property name="hibernate.show_sql" 				value="true"/>
 		<property name="hibernate.format_sql" 				value="true"/>
 		<property name="hibernate.generate_statistics" 		value="true"/>

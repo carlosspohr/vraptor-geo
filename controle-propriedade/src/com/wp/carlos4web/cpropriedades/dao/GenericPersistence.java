@@ -10,11 +10,25 @@ import org.hibernate.classic.Session;
 
 import br.com.caelum.vraptor.ioc.Component;
 
+/**
+ * Implementação padrão dos métodos de persistência. O uso da annotation @Componente é necessário
+ * para que o VRaptor possa resolver as suas dependências ao ser injetado em outros lugares.
+ * 
+ * @author Carlos A. Junior (CIH - Centro Internacional de Hidroinformática - carlosjrcabello@gmail.com)
+ */
 @Component
 public abstract class GenericPersistence implements IPersistence
 {
 	private EntityManager entityManager;
 	
+	/**
+	 * Construtor padrão que recebe uma instancia do EntityManager que foi gerenciado totalmente
+	 * pelo VRaptor.
+	 * 
+	 * @see web.xml - declaração do pacote util.jpa
+	 * 
+	 * @param entityManager
+	 */
 	public GenericPersistence(EntityManager entityManager)
 	{
 		super();

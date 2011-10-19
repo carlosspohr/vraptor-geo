@@ -14,6 +14,11 @@ import com.wp.carlos4web.cpropriedades.controllers.forms.ConsultaPropriedade;
 import com.wp.carlos4web.cpropriedades.dao.PropriedadeDAO;
 import com.wp.carlos4web.cpropriedades.geo.GeometriaFactoryException;
 
+/**
+ * Controller para a funcionalidade de consulta por área selecionada.
+ * 
+ * @author Carlos A. Junior (CIH - Centro Internacional de Hidroinformática - carlosjrcabello@gmail.com)
+ */
 @Resource
 @Path("/consultas/propriedades")
 public class ConsultaPropriedadeController
@@ -22,19 +27,36 @@ public class ConsultaPropriedadeController
 	
 	private PropriedadeDAO persistence;
 
-
+	/**
+	 * Construtor padrão com as suas devidas dependências.
+	 * 
+	 * @param result
+	 * @param persistence
+	 */
 	public ConsultaPropriedadeController(Result result, PropriedadeDAO persistence) 
 	{
 		this.result = result;
 		this.persistence = persistence;
 	}
 	
+	/**
+	 * Processa a consulta e redireciona de volta ao formulário removendo assim o 
+	 * gatilho do método POST para evitar re-submits.
+	 * 
+	 * @param consulta
+	 */
 	@Post("/processa/")
 	public void processaConsulta (ConsultaPropriedade consulta)
 	{
 		this.result.redirectTo(this.getClass()).index(consulta);
 	}
 	
+	/**
+	 * Método que define o comportamento do formulário e também chama a consulta
+	 * caso o usuário tenha feito alguma consulta.
+	 * 
+	 * @param consulta
+	 */
 	@Get("/")
 	public void index (ConsultaPropriedade consulta)
 	{

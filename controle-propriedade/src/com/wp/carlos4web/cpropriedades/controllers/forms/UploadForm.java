@@ -5,9 +5,11 @@ import java.io.Serializable;
 import br.com.caelum.vraptor.interceptor.multipart.UploadedFile;
 
 /**
- * Classe que encapsula o campos do formulário de upload de shapefiles.
+ * Classe auxiliar que encapsula o campos do formulário de upload 
+ * de shapefiles. Basicamente os campos do formulário são os atributos
+ * desta classe.
  * 
- * @author carlos
+ * @author Carlos A. Junior (CIH - Centro Internacional de Hidroinformática - carlosjrcabello@gmail.com)
  */
 public class UploadForm implements Serializable
 {

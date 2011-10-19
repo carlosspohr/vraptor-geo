@@ -8,7 +8,7 @@ import com.wp.carlos4web.cpropriedades.beans.Propriedade;
  * Classe utilitária para representar os campos de um formulário de
  * consulta.
  * 
- * @author Carlos Alberto Junior Spohr Polett (carlosjrcabello@gmail.com)
+ * @author Carlos A. Junior (CIH - Centro Internacional de Hidroinformática - carlosjrcabello@gmail.com)
  */
 public class ConsultaPropriedade implements Serializable
 {

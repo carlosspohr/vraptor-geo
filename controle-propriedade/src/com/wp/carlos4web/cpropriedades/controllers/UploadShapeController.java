@@ -22,11 +22,18 @@ import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.interceptor.multipart.UploadedFile;
 
 import com.wp.carlos4web.cpropriedades.beans.Estado;
 import com.wp.carlos4web.cpropriedades.controllers.forms.UploadForm;
 import com.wp.carlos4web.cpropriedades.dao.GenericDAO;
 
+/**
+ * Controller para as funcionalidades do upload de shapefile e listagem dos 
+ * estados que foram importados dos mesmos.
+ * 
+ * @author Carlos A. Junior (CIH - Centro Internacional de Hidroinformática - carlosjrcabello@gmail.com)
+ */
 @Resource
 @Path("/cadastros/upload-shapefile")
 public class UploadShapeController
@@ -35,12 +42,23 @@ public class UploadShapeController
 	
 	private GenericDAO persistence;
 
+	/**
+	 * Construtor padrão com as suas devidas dependências.
+	 * 
+	 * @param result
+	 * 
+	 * @param persistence
+	 */
 	public UploadShapeController(Result result, GenericDAO persistence) 
 	{
 		this.result = result;
 		this.persistence = persistence;
 	}
 	
+	/**
+	 * Método para a listagem dos estados que foram importados dos shapefiles enviados
+	 * ao sistema. Somente responde às requisições GET.
+	 */
 	@Get("/")
 	public void index ()
 	{
@@ -48,13 +66,25 @@ public class UploadShapeController
 		this.result.include("estados", estados);
 	}
 	
-	
+	/**
+	 * Método que recebe o upload dos arquivos do shapefile (.shp, .shx, .dbf) que foram enviados
+	 * pelo usuário. Toda a lógica do upload é abstraído através da classe {@link UploadedFile}, e
+	 * para renomear ou mover estes arquivos utilizamos os recursos da commons-io e commons-fileupload.
+	 * 
+	 * Assim como um formulário comum, o método somente responde a requisições POST, e que também o
+	 * upload de arquivos somente funciona por meio do POST.
+	 * 
+	 * @param upload
+	 * 
+	 * @param context
+	 * 
+	 * @throws IOException
+	 */
 	@Post("/salvar/")
 	public void salvar (UploadForm upload, ServletContext context) throws IOException
 	{
 		String caminho = context.getRealPath("/") + "/WEB-INF/arquivos/";
 		String prefixo = Calendar.getInstance().getTimeInMillis() + "";
-		
 		
 		// Copia o arquivo SHP
 		String arquivoDestinoShp = prefixo + "." + FilenameUtils.getExtension(upload.getShp().getFileName());
@@ -74,11 +104,11 @@ public class UploadShapeController
 
 		definitions.put("LEVEL_4_CO", 	"sigla");
 		definitions.put("LEVEL_4_NA", 	"nome");
-		
 		definitions.put("the_geom", 	"limite");
 
 		ShapeFileReader reader;
-		try {
+		try
+		{
 			reader = new ShapeFileReader(Estado.class, shp, definitions);
 			reader.setSrid(4326);
 

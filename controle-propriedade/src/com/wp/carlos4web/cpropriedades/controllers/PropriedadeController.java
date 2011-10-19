@@ -16,6 +16,11 @@ import com.wp.carlos4web.cpropriedades.dao.GenericDAO;
 import com.wp.carlos4web.cpropriedades.geo.GeometriaFactory;
 import com.wp.carlos4web.cpropriedades.vraptor.lo.annotations.LoadObject;
 
+/**
+ * Controller de todas as funcionalidades da aplicação para as propriedades.
+ * 
+ * @author Carlos A. Junior (CIH - Centro Internacional de Hidroinformática - carlosjrcabello@gmail.com)
+ */
 @Resource
 @Path("/cadastros/propriedades")
 public class PropriedadeController
@@ -26,13 +31,29 @@ public class PropriedadeController
 
 	private Validator validator;
 
+	/**
+	 * Construtor padrão do controller com as duas devidas dependências.
+	 * 
+	 * @param result
+	 * 
+	 * @param persistence
+	 * 
+	 * @param validator
+	 */
 	public PropriedadeController(Result result, GenericDAO persistence, Validator validator) 
 	{
-		this.result = result;
-		this.persistence = persistence;
-		this.validator = validator;
+		this.result 		= result;
+		this.persistence 	= persistence;
+		this.validator 		= validator;
 	}
 	
+	/**
+	 * Método para listar as propriedades cadastradas. Funciona somente com o método GET e
+	 * a sua URI atual é concatenada com o caminho absoluto na annotation @Path que está 
+	 * na declaração desta classe.
+	 * 
+	 * @see Path
+	 */
 	@Get("/")
 	public void index ()
 	{
@@ -40,6 +61,12 @@ public class PropriedadeController
 		this.result.include("propriedades", propriedades);
 	}
 	
+	/**
+	 * Método para exclusão de um objeto propriedade, onde o parâmetro é mapeado na URL GET e
+	 * com carregamento feito via a annotation @LoadObject.
+	 * 
+	 * @param propriedade
+	 */
 	@Get({
 		"/excluir/{propriedade.id}"
 	})
@@ -51,6 +78,7 @@ public class PropriedadeController
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		this.result.redirectTo(this.getClass()).index();
 	}
 	
@@ -68,11 +96,20 @@ public class PropriedadeController
 		this.result.include("propriedade", propriedade);
 	}
 	
+	/**
+	 * Método para salvar ou atualizar um registro de propriedade. Este método antende somente
+	 * requisições POST. Este método não possui uma view jsp porque assim como o método excluir,
+	 * após o seu processamento a página é redirecionada para o listagem das propriedades 
+	 * cadastradas.
+	 * 
+	 * @param propriedade - objeto populado baseado nos parâmetros do formulário onde todos os
+	 * campos deste objeto tem o name começando com "propriedade.".
+	 */
 	@Post("/salvar/")
 	public void salvar (Propriedade propriedade)
 	{
 		final Propriedade p = propriedade;
-		//ResourceBundle.getBundle("messages", Locale.ENGLISH)
+
 		validator.checking(new Validations(){{
 			if(p != null)
 			{
@@ -89,6 +126,7 @@ public class PropriedadeController
 		{
 			Point ponto = (Point) GeometriaFactory.createPointFromCoordinates(propriedade.getX(), propriedade.getY(), 4326);
 			propriedade.setPoint(ponto);
+			
 			this.persistence.update(propriedade);
 			this.result.include("msg", "Propriedade salva com sucesso.");
 		} catch (Exception e) {

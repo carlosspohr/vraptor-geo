@@ -42,6 +42,10 @@
 			<br/>
 			<input class="map-button btn" type="button" id="bt-abre-mapa"
 												value="<fmt:message key='abrir.janela.mapa'/>"/>
+												
+			<br/>
+			<br/>
+			<br/>
 			<input type="submit" value="Salvar"/>
 			
 		</form>
