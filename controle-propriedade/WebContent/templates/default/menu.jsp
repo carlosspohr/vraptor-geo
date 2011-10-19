@@ -25,5 +25,10 @@
 					Consulta
 				</a>
 			</li>
+			<li>
+				<a href="<c:url value='/cadastros/upload-shapefile/'/>">
+					Upload shapefile
+				</a>
+			</li>
 		</ul>
 	</div>
